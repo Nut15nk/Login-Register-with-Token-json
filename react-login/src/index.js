@@ -9,6 +9,7 @@ import Home from './home.js';
 import Register from './Registration.js';
 import RequestResetPassword from './RequestResetPassword.js'; // นำเข้า RequestResetPassword
 import ResetPassword from './ResetPassword.js'; // นำเข้า ResetPassword
+import Profile from './Profile.js'; // นำเข้า Profile
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -18,8 +19,9 @@ root.render(
             <Route path="/login" element={<Login />} />
             <Route path="/home" element={<Home />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/request-reset-password" element={<RequestResetPassword />} /> {/* เส้นทางใหม่ */}
+            <Route path="/request-reset-password" element={<RequestResetPassword />} />
             <Route path="/reset-password/:token" element={<ResetPassword />} />
+            <Route path="/profile" element={<Profile />} />
         </Routes>
     </BrowserRouter>
 );

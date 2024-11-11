@@ -14,41 +14,47 @@ const Registration = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
 
- const handleRegister = async (e) => {
-  e.preventDefault();
+  const handleRegister = async (e) => {
+    e.preventDefault();
 
-  if (pass !== cPassword) {
-    setError("Passwords do not match");
-    setSuccessMessage("");
-    return;
-  }
-
-  try {
-    const res = await axios.post("http://localhost:3333/register", {
-      fname: fname,
-      lname: lname,
-      email: mail,
-      password: pass
-    });
-
-    if (res.status === 200) {
-      setSuccessMessage("Registration successful! Redirecting to Login...");
-      setError("");
-      setTimeout(() => {
-        navigate('/login');
-    }, 3000);
-      localStorage.setItem("token", res.data.token);
-    }
-  } catch (error) {
-    if (error.response && error.response.status === 401) {
-      setError("Email or password is invalid");
+    if (pass !== cPassword) {
+      setError("Passwords do not match");
       setSuccessMessage("");
-    } else {
-      setError("An unexpected error occurred. Please try again.");
+      return;
+    }
+
+    try {
+      const res = await axios.post("http://localhost:3333/register", {
+        fname: fname,
+        lname: lname,
+        email: mail,
+        password: pass
+      });
+
+      // Check if registration is successful
+      if (res.status === 201 && res.data.status === "OK") {
+        setSuccessMessage("Registration successful! Redirecting to Login...");
+        setError("");
+        
+        // Store the JWT token in localStorage
+        localStorage.setItem("token", res.data.token);
+
+        // Redirect to login page after 3 seconds
+        setTimeout(() => {
+          navigate('/login');
+        }, 3000);
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        // Handle validation or duplicate email errors
+        setError(error.response.data.message || "Invalid input data");
+      } else {
+        // Handle other errors
+        setError("An unexpected error occurred. Please try again.");
+      }
       setSuccessMessage("");
     }
-  }
-};
+  };
 
   return (
     <div className="registration-container">
@@ -56,6 +62,7 @@ const Registration = () => {
         <h2 className="registration-title">Sign Up</h2>
         {error && <p className="error-message">{error}</p>}
         {successMessage && <p className="success-message">{successMessage}</p>}
+        
         <div className="input-group">
           <label>First Name</label>
           <input
@@ -65,6 +72,7 @@ const Registration = () => {
             required
           />
         </div>
+        
         <div className="input-group">
           <label>Last Name</label>
           <input
@@ -74,6 +82,7 @@ const Registration = () => {
             required
           />
         </div>
+        
         <div className="input-group">
           <label>Email</label>
           <input
@@ -83,6 +92,7 @@ const Registration = () => {
             required
           />
         </div>
+        
         <div className="input-group">
           <label>Password</label>
           <input
@@ -92,6 +102,7 @@ const Registration = () => {
             required
           />
         </div>
+        
         <div className="input-group">
           <label>Confirm Password</label>
           <input
@@ -101,6 +112,7 @@ const Registration = () => {
             required
           />
         </div>
+        
         <button type="submit" className="register-button">Sign Up</button>
       </form>
     </div>

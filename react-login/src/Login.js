@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
@@ -10,6 +10,14 @@ const Login = () => {
   });
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      // หาก token มีอยู่ เปลี่ยนเส้นทางไปที่หน้า Home ทันที
+      navigate("/Home");
+    }
+  }, [navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,7 +51,7 @@ const Login = () => {
         setError("An unexpected error occurred. Please try again.");
       }
     }
-}  
+  };
 
   return (
     <div className="login-container">

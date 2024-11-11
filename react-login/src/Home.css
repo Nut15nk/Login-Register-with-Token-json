@@ -64,4 +64,55 @@
   .buy-button:hover {
     background-color: #e85a5a;
   }
-  
+  /* CSS สำหรับ Dropdown */
+.dropdown-container {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-icon {
+  width: 40px; /* ขนาดของรูปโปรไฟล์ */
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover; /* ให้รูปมีสัดส่วนที่ถูกต้อง */
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  width: 150px;
+}
+
+.dropdown-menu ul {
+  list-style-type: none;
+  padding: 10px;
+  margin: 0;
+}
+
+.dropdown-menu li {
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+.dropdown-menu li:hover {
+  background-color: #f1f1f1;
+}

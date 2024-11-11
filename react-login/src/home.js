@@ -1,11 +1,62 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Home.css";
 
+// Dropdown Component
+const Dropdown = ({ onLogout }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [profileImage, setProfileImage] = useState(null); // สำหรับเก็บ URL ของรูปโปรไฟล์
+  const navigate = useNavigate();
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  // ถ้าไม่ต้องการดึงจาก API, ใช้รูปจาก src โดยตรง
+  useEffect(() => {
+    // ในที่นี้เราใช้รูปจากไฟล์ในโฟลเดอร์ src/assets หรือ src/ ตรงๆ
+    setProfileImage(require("../src/default-profile-image.png")); // หรือใช้ path ตามที่คุณเก็บไว้
+  }, []);
+
+  // ฟังก์ชันสำหรับไปหน้า Profile
+  const handleProfileClick = () => {
+    navigate("/profile");
+  };
+
+  return (
+    <div className="dropdown-container">
+      <button className="dropdown-button" onClick={toggleDropdown}>
+        <img
+          src={profileImage} // ใช้ profileImage ที่ได้จากการ import
+          alt="Profile"
+          className="profile-icon"
+        />
+      </button>
+
+      {isOpen && (
+        <div className="dropdown-menu">
+          <ul>
+            <li onClick={handleProfileClick}>Profile</li>
+            <li>Settings</li>
+            <li onClick={onLogout}>Logout</li>
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+};
+
 const Home = () => {
   const navigate = useNavigate();
 
+  // ฟังก์ชันสำหรับออกจากระบบ
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
+  // การตรวจสอบการล็อกอินเมื่อหน้าโหลด
   useEffect(() => {
     const token = localStorage.getItem("token");
 
@@ -34,7 +85,7 @@ const Home = () => {
     }
   }, [navigate]);
 
-  // ข้อมูลหนังสือ ตัวอย่าง
+  // ตัวอย่างข้อมูลหนังสือ
   const books = [
     {
       id: 1,
@@ -62,6 +113,7 @@ const Home = () => {
   return (
     <div className="home-container">
       <h1 className="home-title">Welcome to Our Bookstore</h1>
+      <Dropdown onLogout={handleLogout} />
       <div className="books-list">
         {books.map((book) => (
           <div key={book.id} className="book-card">
