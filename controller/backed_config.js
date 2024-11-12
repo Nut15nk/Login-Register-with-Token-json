@@ -30,12 +30,12 @@ const resetPassword = (req, res) => {
             const transporter = nodemailer.createTransport({
                 service: 'Gmail',
                 auth: {
-                    user: 'nakavat12@gmail.com',
-                    pass: 'zjin ofau ozyx vvqu',
+                    user: 'user@email',
+                    pass: 'apppassword',
                 },
             });
             const mailOptions = {
-                from: 'nakavat12@gmail.com',
+                from: 'user@email',
                 to: email,
                 subject: 'Reset Password',
                 text: `Click the link to reset your password: http://localhost:3000/reset-password/${token}`,
