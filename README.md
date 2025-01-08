@@ -16,6 +16,9 @@
 
 ![image](https://i.imgur.com/XAuEgVj.png)
 ![image](https://i.imgur.com/b8hPQ7A.png)
+# UserProfile
+
+![image](https://i.imgur.com/CnCiWBl.png)
 # Logout
 
 ![image](https://i.imgur.com/5tP8APr.png)
