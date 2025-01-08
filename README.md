@@ -4,7 +4,7 @@
 # Register
 
 ![image](https://i.imgur.com/dkNgRXS.png)
-# Reset
+# ResetPassword
 
 ![image](https://i.imgur.com/plBz3uw.png)
 ![image](https://i.imgur.com/rzewJPp.png)
