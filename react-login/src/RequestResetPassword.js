@@ -29,7 +29,11 @@ const RequestResetPassword = () => {
                 />
                 <button type="submit">Send Reset Link</button>
             </form>
-            {message && <p>{message}</p>}
+            {message && (
+            <p className={message.startsWith('Error') ? 'error-message' : 'success-message'}>
+                {message}
+            </p>
+        )}
         </div>
     );
 };
